@@ -1,0 +1,7 @@
+# Node.js related files
+node_modules/
+.vscode
+.env
+/dist/
+Thumbs.db
+*lock*
