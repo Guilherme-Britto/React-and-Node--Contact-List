@@ -14,6 +14,7 @@ import {
 import ensureIsAdmin from "../middlewares/ensureIsAdmin";
 import ensureTokenIsValid from "../middlewares/ensureTokenValid";
 import ensureUserIdIsValid from "../middlewares/ensureUserIdIsValid";
+import ensureEmailIsUnique from "../middlewares/ensureEmailIsUnique";
 
 const userRoutes = Router();
 
@@ -30,13 +31,13 @@ userRoutes.patch(
   ensureUserIdIsValid,
   ensureTokenIsValid,
   ensureDataIsValid(userSchemaUpdateRequest),
+  ensureEmailIsUnique,
   updateUsersController
 );
 userRoutes.delete(
   "/:id",
   ensureUserIdIsValid,
   ensureTokenIsValid,
-  ensureIsAdmin,
   deleteUsersController
 );
 

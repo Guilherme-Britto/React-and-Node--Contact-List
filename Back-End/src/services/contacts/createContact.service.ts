@@ -2,11 +2,7 @@ import { AppDataSource } from "../../data-source";
 import { Contact } from "../../entities/contacts.entite";
 import { User } from "../../entities/user.entitie";
 import { AppError } from "../../errors/AppError";
-import {
-  TContact,
-  TContactRequest,
-} from "../../interfaces/contacts.interfaces";
-import { contactSchema } from "../../schemas/contacts.schema";
+import { TContactRequest } from "../../interfaces/contacts.interfaces";
 
 const createContactService = async (
   data: TContactRequest,

@@ -7,8 +7,8 @@ import {
 import listUsersService from "../services/users/listUsers.service";
 import { AppError } from "../errors/AppError";
 import updateUsersService from "../services/users/updateUsers.service";
-import listUserService from "../services/users/listUsers.service";
 import deleteUsersService from "../services/users/deleteUsers.service";
+import listUserServicee from "../services/users/listUser.service";
 
 const createUserController = async (req: Request, res: Response) => {
   const newUser = await createUserService(req.body);
@@ -32,7 +32,7 @@ const listUserController = async (
   const { id, isAdmin } = res.locals.token;
 
   if (isAdmin || idParams == id) {
-    const user = await listUserService();
+    const user = await listUserServicee(idParams);
 
     return res.status(200).json(user);
   }
@@ -61,12 +61,15 @@ const deleteUsersController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const id: string = req.params.id;
-
-  await deleteUsersService(id);
-
-  return res.status(204).send();
+  const idParams: string = req.params.id;
+  const { id, isAdmin } = res.locals.token;
+  if (isAdmin || idParams == id) {
+    await deleteUsersService(id);
+    return res.status(204).send();
+  }
+  throw new AppError("Insufficient permission", 403);
 };
+
 export {
   createUserController,
   listUsersController,

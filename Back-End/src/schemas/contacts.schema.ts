@@ -17,4 +17,21 @@ const contactSchemaRequest = contactSchema.omit({
   createdAt: true,
 });
 
-export { contactSchema, contactSchemaRequest };
+const contactSchemaResponse = contactSchema.extend({
+  phoneNumber: z.array(z.string()),
+});
+
+const contactsSchemaResponse = z.array(
+  contactSchema.extend({
+    phoneNumber: z.array(z.string()),
+  })
+);
+
+const contactSchemaUpdateRequest = contactSchemaRequest.partial();
+export {
+  contactSchema,
+  contactSchemaRequest,
+  contactsSchemaResponse,
+  contactSchemaUpdateRequest,
+  contactSchemaResponse,
+};

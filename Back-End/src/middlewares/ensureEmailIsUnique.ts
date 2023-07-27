@@ -4,25 +4,29 @@ import { AppDataSource } from "../data-source";
 import { User } from "../entities/user.entitie";
 import { AppError } from "../errors/AppError";
 
-const ensureUserIdIsValid = async (
+const ensureEmailIsUnique = async (
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<Response | void> => {
+) => {
+  const email: string = req.body.email;
   const id: string = req.params.id;
+
   const userRepository: Repository<User> = AppDataSource.getRepository(User);
-  try {
-    const user: User | null = await userRepository.findOneBy({
-      id: id,
+
+  if (email) {
+    const user: User | null = await userRepository.findOne({
+      where: {
+        email: email,
+      },
     });
-    if (!user) {
-      throw new AppError("User not found", 404);
+
+    if (user && user.id !== id) {
+      throw new AppError("Email already exists", 409);
     }
-  } catch (error: any) {
-    throw new AppError(error.message, 404);
   }
 
   return next();
 };
 
-export default ensureUserIdIsValid;
+export default ensureEmailIsUnique;
