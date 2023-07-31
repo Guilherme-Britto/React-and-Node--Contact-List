@@ -1,3 +1,14 @@
+import { useAuth } from "../../hooks/useAuth";
+
 export const Dashboard = () => {
-  return <h1>Dashboard</h1>;
+  const { userLogout } = useAuth();
+
+  return (
+    <main>
+      <div>
+        <h2>Dashboard</h2>
+        <button onClick={() => userLogout()}>Sair</button>
+      </div>
+    </main>
+  );
 };

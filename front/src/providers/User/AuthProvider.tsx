@@ -1,7 +1,8 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { LoginData } from "../pages/Login/validator";
-import { api } from "../services/api";
+import { LoginData } from "../../pages/Login/validator";
+import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { CreateUserData } from "../../components/FormCreateUser/validator";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -13,12 +14,19 @@ interface LoginResponse {
 
 interface AuthContextValues {
   signIn: (data: LoginData) => Promise<void>;
+  signUp: (data: CreateUserData) => Promise<void>;
+  toggleSignUpOpenModal: () => void;
+  isSignUpOpenModal: boolean;
+  userLogout: () => void;
   loading: boolean;
 }
 
 export const AuthContext = createContext({} as AuthContextValues);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [isSignUpOpenModal, setIsSignUpOpenModal] = useState(false);
+  const toggleSignUpOpenModal = () => setIsSignUpOpenModal(!isSignUpOpenModal);
+
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -50,8 +58,34 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const signUp = async (data: CreateUserData) => {
+    try {
+      console.log("dsdwssd");
+
+      await api.post<CreateUserData>("/users", data);
+
+      toggleSignUpOpenModal();
+    } catch (error) {
+      alert("Email já cadastrado!");
+    }
+  };
+
+  const userLogout = (): void => {
+    localStorage.removeItem("your-todolist:token");
+    navigate("/");
+  };
+
   return (
-    <AuthContext.Provider value={{ signIn, loading }}>
+    <AuthContext.Provider
+      value={{
+        signIn,
+        signUp,
+        loading,
+        userLogout,
+        toggleSignUpOpenModal,
+        isSignUpOpenModal,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
