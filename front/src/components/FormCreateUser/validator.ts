@@ -25,4 +25,4 @@ export const userSchemaRequestForm = userSchemaRequest.extend({
 });
 
 export type CreateUserData = z.infer<typeof userSchemaRequest>;
-export type userSchemaRequestForm = z.infer<typeof userSchemaRequestForm>;
+export type userRequestForm = z.infer<typeof userSchemaRequestForm>;

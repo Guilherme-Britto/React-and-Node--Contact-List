@@ -1,7 +1,11 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAuth } from "../../hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreateUserData, userSchemaRequestForm } from "./validator";
+import {
+  CreateUserData,
+  userRequestForm,
+  userSchemaRequestForm,
+} from "./validator";
 import { Modal } from "../Modal";
 
 interface FormRegisterModalProps {
@@ -10,16 +14,12 @@ interface FormRegisterModalProps {
 export const FormRegisterModal = ({
   toggleSignUpOpenModal,
 }: FormRegisterModalProps) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<userSchemaRequestForm>({
+  const { register, handleSubmit } = useForm<userRequestForm>({
     resolver: zodResolver(userSchemaRequestForm),
   });
   const { signUp } = useAuth();
 
-  const submit: SubmitHandler<userSchemaRequestForm> = (formData) => {
+  const submit: SubmitHandler<userRequestForm> = (formData) => {
     if (formData.password !== formData.passwordConfirmation) {
       alert("As senhas precisam ser iguais");
       return;
@@ -35,10 +35,6 @@ export const FormRegisterModal = ({
 
     signUp(formData);
   };
-
-  if (errors) {
-    console.log(errors);
-  }
 
   return (
     <Modal toggleModal={toggleSignUpOpenModal}>

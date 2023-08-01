@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("your-todolist:token");
+    const token = localStorage.getItem("contact-list:token");
 
     if (!token) {
       setLoading(false);
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const { token } = response.data;
 
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
-      localStorage.setItem("your-todolist:token", token);
+      localStorage.setItem("contact-list:token", token);
       setLoading(false);
 
       navigate("dashboard");
@@ -60,8 +60,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signUp = async (data: CreateUserData) => {
     try {
-      console.log("dsdwssd");
-
       await api.post<CreateUserData>("/users", data);
 
       toggleSignUpOpenModal();
@@ -71,7 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const userLogout = (): void => {
-    localStorage.removeItem("your-todolist:token");
+    localStorage.removeItem("contact-list:token");
     navigate("/");
   };
 

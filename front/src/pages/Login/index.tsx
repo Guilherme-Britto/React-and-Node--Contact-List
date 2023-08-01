@@ -10,6 +10,11 @@ export const Login = () => {
   });
   const { signIn, toggleSignUpOpenModal, isSignUpOpenModal } = useAuth();
 
+  const renderBoard = (tasksToRender: Task[]) =>
+    tasksToRender.map((task) => (
+      <Card key={task.id} task={task} setTask={setTasks} />
+    ));
+
   return (
     <main>
       <div>
