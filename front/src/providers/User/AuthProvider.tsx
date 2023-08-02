@@ -2,7 +2,7 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import { LoginData } from "../../pages/Login/validator";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import { CreateUserData } from "../../components/FormCreateUser/validator";
+import { CreateUserData } from "../../components/ModalCreateUser/validator";
 
 interface AuthProviderProps {
   children: ReactNode;

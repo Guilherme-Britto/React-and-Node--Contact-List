@@ -11,7 +11,7 @@ import { Modal } from "../Modal";
 interface FormRegisterModalProps {
   toggleSignUpOpenModal: () => void;
 }
-export const FormRegisterModal = ({
+export const ModalRegister = ({
   toggleSignUpOpenModal,
 }: FormRegisterModalProps) => {
   const { register, handleSubmit } = useForm<userRequestForm>({

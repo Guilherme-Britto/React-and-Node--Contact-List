@@ -2,18 +2,13 @@ import { useForm } from "react-hook-form";
 import { LoginData, schema } from "./validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../../hooks/useAuth";
-import { FormRegisterModal } from "../../components/FormCreateUser";
+import { ModalRegister } from "../../components/ModalCreateUser";
 
 export const Login = () => {
   const { register, handleSubmit } = useForm<LoginData>({
     resolver: zodResolver(schema),
   });
   const { signIn, toggleSignUpOpenModal, isSignUpOpenModal } = useAuth();
-
-  const renderBoard = (tasksToRender: Task[]) =>
-    tasksToRender.map((task) => (
-      <Card key={task.id} task={task} setTask={setTasks} />
-    ));
 
   return (
     <main>
@@ -33,7 +28,7 @@ export const Login = () => {
       <div>
         <div className="modalDiv">
           {isSignUpOpenModal && (
-            <FormRegisterModal toggleSignUpOpenModal={toggleSignUpOpenModal} />
+            <ModalRegister toggleSignUpOpenModal={toggleSignUpOpenModal} />
           )}
         </div>
       </div>

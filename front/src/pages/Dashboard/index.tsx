@@ -3,17 +3,12 @@ import { useAuth } from "../../hooks/useAuth";
 import { api } from "../../services/api";
 import { Contact, User } from "./@types";
 import { Card } from "../../components/Card";
-import { ModalAddContact } from "../../components/FormCreateContact";
-import { ModalDeleteContact } from "../../components/ModalDeleteContact";
+import { ModalAddContact } from "../../components/ModalCreateContact";
 
 export const Dashboard = () => {
   const [createContactModal, setCreateContactModal] = useState(false);
   const toggleCreateContactModal = () =>
     setCreateContactModal(!createContactModal);
-
-  const [deleteContactModal, setDeleteContactModal] = useState(false);
-  const toggleDeleteContactModal = () =>
-    setDeleteContactModal(!deleteContactModal);
 
   const { userLogout } = useAuth();
   const [contacts, setContacts] = useState<Contact[]>();
@@ -36,7 +31,12 @@ export const Dashboard = () => {
 
   const renderBoard = (contacts: Contact[]): ReactNode => {
     return contacts.map((contact) => (
-      <Card key={contact.id} contact={contact} />
+      <Card
+        key={contact.id}
+        contact={contact}
+        setContacts={setContacts}
+        contacts={contacts}
+      />
     ));
   };
 
@@ -67,12 +67,6 @@ export const Dashboard = () => {
             setContacts={setContacts}
           />
         )}
-        {/* {deleteContactModal && (
-          <ModalDeleteContact
-            toggleModal={toggleCreateContactModal}
-            setContacts={setContacts}
-          />
-        )} */}
         <main>
           {contacts ? (
             <ul>{renderBoard(contacts!)}</ul>

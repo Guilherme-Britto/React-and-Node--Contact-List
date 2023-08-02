@@ -23,8 +23,6 @@ export const ModalAddContact = ({
   });
 
   const submit: SubmitHandler<ContactRequestForm> = async (formData) => {
-    console.log(formData);
-
     if (!formData.name) {
       return alert("Nome é obrigatório");
     }
@@ -75,12 +73,9 @@ export const ModalAddContact = ({
     if (formData.phoneNumber2 != 0) {
       contactSubmit.phoneNumber.push(formData.phoneNumber2);
     }
-    console.log(contactSubmit);
 
-    const response = await api.post<CreateContactData>(
-      "/contacts",
-      contactSubmit
-    );
+    const response = await api.post<Contact>("/contacts", contactSubmit);
+
     setContacts((previusContacts) => [response.data, ...previusContacts]);
     toggleModal();
     return;
