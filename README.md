@@ -9,6 +9,7 @@ Instrutions to run the project:
 Navigate to the backend directory on the terminal.
 
 Install the backend dependencies by running the following command in the terminal:
+
 npm install
 npm run dev
 
