@@ -6,9 +6,9 @@ Instrutions to run the project:
 
 2º Backend Setup:
 
-1º Navigate to the backend directory on the terminal.
+Navigate to the backend directory on the terminal.
 
-2º Install the backend dependencies by running the following command in the terminal:
+Install the backend dependencies by running the following command in the terminal:
 npm install
 npm run dev
 
