@@ -15,9 +15,13 @@ Instrutions to run the project:
     npm run dev
 
 3º Frontend Setup:
-  1º Navigate to the frontend directory on the terminal.
-  2º Install the frontend dependencies by running the following command in the terminal:
+
+  Navigate to the frontend directory on the terminal.
+  
+  Install the frontend dependencies by running the following command in the terminal:
+  
     npm install
+    
     npm run dev
  
 4º The port to access the React application in your web browser will show up in the frontend terminal, as in the example bellow: 
